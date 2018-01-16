@@ -42,6 +42,7 @@ Don't forget to add a pro-tip as extra feature (based on temperature, suggest wh
                             console.log(response);
                             var stringHeader = '<h4 style="white-space:nowrap;overflow:hidden;"><strong> WEATHER FORECAST FOR THE DAY FOR :- <strong></h4><h3 style="font-style:italic;color:#0375B4;font-weight:bold;white-space:nowrap;overflow:hidden;">' + response.location.name + ', ' + response.location.region + ', ' + response.location.country + ' </h3><br />';
                             stringHeader += '<ul class="nav nav-tabs"><li class="active"><a data-toggle="tab" href="#today" id="opt1" style="font-weight:bold;font-size:20px;"> DATE:- ' + response.forecast.forecastday[0].date + '</a></li></ul>';
+
                             //stringHeader += '<li><a data-toggle="tab" href="#hour2" id="opt2" style="font-weight:bold">' + response.forecast.forecastday[0].hour[2].time + '</a></li><li><a data-toggle="tab" href="#hour3" id="opt3" style="font-weight:bold">' + response.forecast.forecastday[0].hour[3].time +'</a></li>';
                             //stringHeader += '<li><a data-toggle="tab" href="#hour4" id="opt4" style="font-weight:bold">' + response.forecast.forecastday[0].hour[4].time + '</a></li><li><a data-toggle="tab" href="#hour5" id="opt5" style="font-weight:bold">' + response.forecast.forecastday[0].hour[5].time +'</a></li>';
                             //stringHeader += '<li><a data-toggle="tab" href="#hour6" id="opt6" style="font-weight:bold">' + response.forecast.forecastday[0].hour[6].time +'</a></li></ul>';
