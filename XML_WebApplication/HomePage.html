@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnGetWeather').click(function () {
+                var resultElement = $('#divResult');
+                var appId = 'ad9b2e59d88c9ce936545b2a3dcc99ad';
+                resultElement.html('');
+
+                var requestData = $('#txtCity').val() + ',' + $('#txtCountry').val();
+                $.ajax({
+                    url: 'http://api.openweathermap.org/data/2.5/weather',
+                    method: 'get',
+                    data: { q: requestData, appid:appId },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.message != null) {
+                            resultElement.html(response.message);
+                        }
+                        else {
+                            console.log(response.weather[0].main);
+                            //response.weather[0].main
+                            //resultElement.html(' + '<br />');
+                            var stringFinal = '<div class="modal-dialog"><div class="modal-content"><div class="modal-header">';
+                            stringFinal += '<button type="button" class="close" data-dismiss="modal">&times;</button> <h2 style="color:black;font-weight:bold;">WEATHER PARAMETERS</h2>';
+                            stringFinal += '<h3 id= "txtCityName" style="color:gray;font-weight:black;">' + response.name + '</h3><h3 id="txtCountryName" style="color:gray;font-weight:bold;">' + response.sys.country + '</h3></div>';
+                            stringFinal += '<div class="modal-body">';
+                            stringFinal += '<div class="row"><div class="col-sm-4"><span class="glyphicon glyphicon-certificate"></span><h5 style="color:black;font-weight:bold;">CURRENT WEATHER</h5><h3 style="color:black">' + response.weather[0].main +'</h3></div>';
+                            stringFinal += '<div class="col-sm-4"><span class="glyphicon glyphicon-fire"></span><h5 style="color:black;font-weight:bold;">TEMPERATURE</h5><h3 style="color:black">' + response.main.temp + '</h3></div>';
+                            stringFinal += '<div class="row"><div class="col-sm-4"><span class="glyphicon glyphicon-dashboard"></span><h5 style="color:black;font-weight:bold;">PRESSURE</h5><h3 style="color:black">' + response.main.pressure + '</h3></div></div><br><br>';
+                            stringFinal += '<div class="col-sm-4"><span class="glyphicon glyphicon-globe"></span><h5 style="color:black;font-weight:bold;">HUMIDITY</h5><h3 style="color:black">' + response.main.humidity + '</h3></div>';
+                            stringFinal += '<div class="col-sm-4"><span class="glyphicon glyphicon-cloud"></span><h5 style="color:black;font-weight:bold;">CLOUD DESNTIY</h5><h3 style="color:black">' + response.clouds.all + '</h3></div>';
+                            stringFinal += '<div class="col-sm-4" ><span class="glyphicon glyphicon-leaf"></span><h5 style="color:black;font-weight:bold;">WIND SPEED</h5><h3 style="color:black"> ' + response.wind.speed + '</h3></div> </div> </div>';
+                            stringFinal += '<div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">Close</button></div></div></div>';
+                            console.log(stringFinal);
+                            resultElement.html(stringFinal);
+                            
+                        }
+                    },
+                    error: function (err) {
+                        var stringfinal = '<div class=modal-dialog" style="height:200px;width:500px;margin:0 auto;"><div class="modal-content"><div class="modal-header">';
+                        stringfinal += '<button type="button" class="close" data-dismiss="modal">&times;</button> <h2 style="color:black;font-weight:bold;">AW. SNAP! </h2></div>';
+                        stringfinal += '<div class="modal-body"><h4>Looks like you got the wrong City or Country name there. Try again!</h4></div>';
+                        stringfinal += '<div class="modal-footer"><button type="button" class="btn btn-danger" data-dismiss="modal">Close</button></div></div></div>';
+                        console.log(stringfinal);
+                        resultElement.html(stringfinal);
+                    }
+                });
+            });
+        });
+    </script>
+    <title>
+        WEATHERMAN
+    </title>
+    <link rel="stylesheet" type="text/css" href="Weatherman.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#weatherNAV">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">THE WEATHER-MEN</a>
+            </div>
+            <div class="collapse navbar-collapse" id="weatherNAV">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#home">WHATS THE WEATHER LIKE</a></li>
+                    <li><a href="WeatherForecast.html">WEATHER FORECAST</a></li>
+                    <li><a href="Holiday_Destination.html">HOLIDAY DESTINATION</a></li>                
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br />
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="Images/Weather_1.jpg" alt="Drat!" width="1200" height="400">                  
+                </div>
+
+                <div class="item">
+                    <img src="Images/weather_1.jpg" alt="Crap!" width="1200" height="400">
+                </div>
+
+                <div class="item">
+                    <img src="Images/weather_1.jpg" alt="Crap!" width="1200" height="400">
+                </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+     </div>
+    <div class="container-fluid bg-id text-center" style="height:300px">
+        <br />
+        <h1>CHECK WEATHER DETAILS</h1>
+        <h3>Easy access to quick and timely weather information based on City and Country</h3>
+        <br />
+        <form class="form-inline">
+            <span class="glyphicon glyphicon-map-marker"></span>&nbsp;
+            <input type="text" id="txtCity" class="form-control" size="25" placeholder="City">
+            &nbsp;&nbsp;
+            <span class="glyphicon glyphicon-map-marker"></span>&nbsp;
+            <input type="text" id="txtCountry" class="form-control" size="25" placeholder="Country">
+        </form>
+        <br />
+        <br />
+        <div class="input-group-btn">
+            <button type="button" id="btnGetWeather" class="btn btn-info" data-toggle="modal" data-target="#divResult">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </button>
+        </div>
+        <div class="modal fade" id="divResult" role="dialog">
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnGetWeather').click(function () {
+                var resultElement = $('#divResult');
+                var requestData = $('#txtContinent').val();
+                var dropdownList = $('#list option:selected').text();
+                //alert(dropdownList);
+                if (requestData == "Antartica")
+                {
+                    alert("Haha! Nope. You're not getting a trip to Antartica buddy");
+                }
+
+                $.ajax({
+                    url: 'HolidayWebService.asmx/ProvideHolidayDestination',
+                    method: 'post',
+                    data: { Continent: requestData, weather_pref: dropdownList },
+                    dataType: 'xml',
+                    xhrfields: {
+                        withCredentials: true
+                    },
+                    success: function (response) {
+                        var xmlParse = $(response);
+                        console.log(xmlParse.find("Country").text());
+                        $('#showResult').text(xmlParse.find('Country').text());
+                    },
+                    error: function (err) {
+                        alert("Oops! Wrong Continent there buddy!");
+                    }
+                });
+            });
+        });
+    </script>
+    <title>
+        WEATHERMAN
+    </title>
+    <link rel="stylesheet" type="text/css" href="Weatherman.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#weatherNAV">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">THE WEATHER-MEN</a>
+            </div>
+            <div class="collapse navbar-collapse" id="weatherNAV">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="HomePage.html">WHATS THE WEATHER LIKE</a></li>
+                    <li><a href="WeatherForecast.html">WEATHER FORECAST</a></li>
+                    <li><a href="Holiday_Destination.html">HOLIDAY DESTINATION</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br /><br /><br />
+   
+
+    <div class="container-fluid text-center">
+        Continent : <input id="txtContinent" type="text"/> <br /><br />
+        Choice of Weather: 
+        <select id="list">
+            <option value="0">--Select Weather Type--</option>
+            <option value="1">Cold and Windy</option>            
+            <option value="2">Hot and Humid</option>
+            <option value="3">Pleasantly cold</option>
+            <option value="4">Tropical</option>
+            <option value="5">Warm and Sunny</option>
+        </select>
+        <br /><br />
+        <input type="button" id="btnGetWeather" value="Get Holiday Destination" />
+        <br />
+        <h2 id="showResult"></h2>
+    </div>
+    
+</body>
+</html>
+

@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+
+<!--API Link - http://api.apixu.com/v1/forecast.json?key=7fdefa92b022483bb14214611172911&q=Paris
+Don't forget to add a pro-tip as extra feature (based on temperature, suggest what to wear)-->
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnGetWeather').click(function () {
+                var resultElement = $('#showForecast');
+                //var showHeader = $('#headerTitle');
+                var appId = '7fdefa92b022483bb14214611172911';
+                resultElement.html('');
+
+                var requestData = $('#txtZip').val();
+                $.ajax({
+                    url: 'http://api.apixu.com/v1/forecast.json',
+                    method: 'get',
+                    data: { key: appId, q: requestData },
+                    dataType: 'json',
+                    xhrfields: {
+                        withCredentials: true
+                    },
+                    success: function (response) {
+                        if (response.message != null) {
+                            resultElement.html(response.message);
+                        }
+                        else {
+                            //alert(response.forecast.forecastday[0].hour[1].time);
+                            console.log(response);
+                            var stringHeader = '<h4 style="white-space:nowrap;overflow:hidden;"> WEATHER FORECAST FOR THE DAY FOR :- </h4><h3 style="font-style:italic;color:#0375B4;font-weight:bold;white-space:nowrap;overflow:hidden;">' + response.location.name + ', ' + response.location.region + ', ' + response.location.country + ' </h3><p>Navigate through the tabs to find the weather for the day up ahead. </p>';
+                            stringHeader += '<ul class="nav nav-tabs"><li class="active"><a data-toggle="tab" href="#today" id="opt1" style="font-weight:bold">' + response.forecast.forecastday[0].hour[1].time + '</a></li>';
+                            stringHeader += '<li><a data-toggle="tab" href="#hour2" id="opt2" style="font-weight:bold">' + response.forecast.forecastday[0].hour[2].time + '</a></li><li><a data-toggle="tab" href="#hour3" id="opt3" style="font-weight:bold">' + response.forecast.forecastday[0].hour[3].time +'</a></li>';
+                            stringHeader += '<li><a data-toggle="tab" href="#hour4" id="opt4" style="font-weight:bold">' + response.forecast.forecastday[0].hour[4].time + '</a></li><li><a data-toggle="tab" href="#hour5" id="opt5" style="font-weight:bold">' + response.forecast.forecastday[0].hour[5].time +'</a></li>';
+                            stringHeader += '<li><a data-toggle="tab" href="#hour6" id="opt6" style="font-weight:bold">' + response.forecast.forecastday[0].hour[6].time +'</a></li></ul>';
+                            //For the first hour
+                            stringHeader += '<div class="tab-content"> <div id="today" class="tab-pane fade in active"><h3>WEATHER STATISTICS</h3>';
+                            stringHeader += '<table class=table table-hover><thead><tr><th>TEMPERATURE</th><th>WEATHER TYPE</th><th>CHANCE OF RAIN</th><th>CHANCE OF SNOW</th><th>HUMIDITY</th><th>CLOUD COVER</th><th>WIND SPEED</th></tr></thead><tbody><tr><td>' + response.forecast.forecastday[0].hour[1].temp_f + '</td><td>' + response.forecast.forecastday[0].hour[1].condition.text + '</td><td>' + response.forecast.forecastday[0].hour[1].chance_of_rain + '%</td><td>' + response.forecast.forecastday[0].hour[1].chance_of_snow + '%</td><td>' + response.forecast.forecastday[0].hour[1].humidity + '</td><td>' + response.forecast.forecastday[0].hour[1].cloud + '</td><td>' + response.forecast.forecastday[0].hour[1].wind_kph +'</td></tr></tbody></table></div>'
+                            //For the next hour
+                            stringHeader += '<div id="hour2" class="tab-pane fade"><h3>WEATHER STATISTICS</h3>';
+                            stringHeader += '<table class=table table-hover><thead><tr><th>TEMPERATURE</th><th>WEATHER TYPE</th><th>CHANCE OF RAIN</th><th>CHANCE OF SNOW</th><th>HUMIDITY</th><th>CLOUD COVER</th><th>WIND SPEED</th></tr></thead><tbody><tr><td>' + response.forecast.forecastday[0].hour[2].temp_f + '</td><td>' + response.forecast.forecastday[0].hour[2].condition.text + '</td><td>' + response.forecast.forecastday[0].hour[2].chance_of_rain + '%</td><td>' + response.forecast.forecastday[0].hour[2].chance_of_snow + '%</td><td>' + response.forecast.forecastday[0].hour[2].humidity + '</td><td>' + response.forecast.forecastday[0].hour[2].cloud + '</td><td>' + response.forecast.forecastday[0].hour[2].wind_kph + '</td></tr></tbody></table></div>'
+                            //For the third hour
+                            stringHeader += '<div id="hour3" class="tab-pane fade"><h3>WEATHER STATISTICS</h3>';
+                            stringHeader += '<table class=table table-hover><thead><tr><th>TEMPERATURE</th><th>WEATHER TYPE</th><th>CHANCE OF RAIN</th><th>CHANCE OF SNOW</th><th>HUMIDITY</th><th>CLOUD COVER</th><th>WIND SPEED</th></tr></thead><tbody><tr><td>' + response.forecast.forecastday[0].hour[3].temp_f + '</td><td>' + response.forecast.forecastday[0].hour[3].condition.text + '</td><td>' + response.forecast.forecastday[0].hour[3].chance_of_rain + '%</td><td>' + response.forecast.forecastday[0].hour[3].chance_of_snow + '%</td><td>' + response.forecast.forecastday[0].hour[3].humidity + '</td><td>' + response.forecast.forecastday[0].hour[3].cloud + '</td><td>' + response.forecast.forecastday[0].hour[3].wind_kph + '</td></tr></tbody></table></div>'
+                            //For the fourth hour
+                            stringHeader += '<div id="hour4" class="tab-pane fade"><h3>WEATHER STATISTICS</h3>';
+                            stringHeader += '<table class=table table-hover><thead><tr><th>TEMPERATURE</th><th>WEATHER TYPE</th><th>CHANCE OF RAIN</th><th>CHANCE OF SNOW</th><th>HUMIDITY</th><th>CLOUD COVER</th><th>WIND SPEED</th></tr></thead><tbody><tr><td>' + response.forecast.forecastday[0].hour[4].temp_f + '</td><td>' + response.forecast.forecastday[0].hour[4].condition.text + '</td><td>' + response.forecast.forecastday[0].hour[4].chance_of_rain + '%</td><td>' + response.forecast.forecastday[0].hour[4].chance_of_snow + '%</td><td>' + response.forecast.forecastday[0].hour[4].humidity + '</td><td>' + response.forecast.forecastday[0].hour[4].cloud + '</td><td>' + response.forecast.forecastday[0].hour[4].wind_kph + '</td></tr></tbody></table></div>'
+                            //For the fifth hour
+                            stringHeader += '<div id="hour5" class="tab-pane fade"><h3>WEATHER STATISTICS</h3>';
+                            stringHeader += '<table class=table table-hover><thead><tr><th>TEMPERATURE</th><th>WEATHER TYPE</th><th>CHANCE OF RAIN</th><th>CHANCE OF SNOW</th><th>HUMIDITY</th><th>CLOUD COVER</th><th>WIND SPEED</th></tr></thead><tbody><tr><td>' + response.forecast.forecastday[0].hour[5].temp_f + '</td><td>' + response.forecast.forecastday[0].hour[5].condition.text + '</td><td>' + response.forecast.forecastday[0].hour[5].chance_of_rain + '%</td><td>' + response.forecast.forecastday[0].hour[5].chance_of_snow + '%</td><td>' + response.forecast.forecastday[0].hour[5].humidity + '</td><td>' + response.forecast.forecastday[0].hour[5].cloud + '</td><td>' + response.forecast.forecastday[0].hour[5].wind_kph + '</td></tr></tbody></table></div>'
+                            //For the sixth hour
+                            stringHeader += '<div id="hour6" class="tab-pane fade"><h3>WEATHER STATISTICS</h3>';
+                            stringHeader += '<table class=table table-hover><thead><tr><th>TEMPERATURE</th><th>WEATHER TYPE</th><th>CHANCE OF RAIN</th><th>CHANCE OF SNOW</th><th>HUMIDITY</th><th>CLOUD COVER</th><th>WIND SPEED</th></tr></thead><tbody><tr><td>' + response.forecast.forecastday[0].hour[6].temp_f + '</td><td>' + response.forecast.forecastday[0].hour[6].condition.text + '</td><td>' + response.forecast.forecastday[0].hour[6].chance_of_rain + '%</td><td>' + response.forecast.forecastday[0].hour[6].chance_of_snow + '%</td><td>' + response.forecast.forecastday[0].hour[6].humidity + '</td><td>' + response.forecast.forecastday[0].hour[6].cloud + '</td><td>' + response.forecast.forecastday[0].hour[6].wind_kph + '</td></tr></tbody></table></div>'
+
+                            stringHeader += '</div>';
+                            console.log(stringHeader);
+                            resultElement.html(stringHeader);
+                        }
+                    },
+                    error: function (err) {
+                        alert("Aw, Snap! Looks like we don't have that city in our API. Can you try again please ?");
+                    }
+                });
+            });
+        });
+    </script>
+    <title>
+        WEATHERMAN
+    </title>
+    <link rel="stylesheet" type="text/css" href="Weatherman.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#weatherNAV">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">THE WEATHER-MEN</a>
+            </div>
+            <div class="collapse navbar-collapse" id="weatherNAV">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="HomePage.html">WHATS THE WEATHER LIKE</a></li>
+                    <li><a href="WeatherForecast.html">WEATHER FORECAST</a></li>
+                    <li><a href="Holiday_Destination.html">HOLIDAY DESTINATION</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br />
+    <div class="container-fluid bg-id text-center" style="height:300px">
+        <br />
+        <h1>WEATHER FORECAST</h1>
+        <h3>Wish to know what the weather would be like throughout the day ?</h3>
+        <br />
+        <form class="form-inline">
+            <span class="glyphicon glyphicon-map-marker"></span>&nbsp;
+            <input type="text" id="txtZip" class="form-control" size="25" placeholder="Enter City Name">
+        </form>
+        <br />
+        <br />
+        <div class="input-group-btn">
+            <button type="button" id="btnGetWeather" class="btn btn-info" data-toggle="modal">
+                <span class="glyphicon glyphicon-search"></span> Search
+            </button>
+        </div>
+        <div class="container-fluid" id="divResult">
+
+        </div>
+    </div>
+    <div class="container" id="showForecast">    
+      
+        
+    </div>
+</body>
+</html>
+
