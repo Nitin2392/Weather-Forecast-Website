@@ -29,7 +29,6 @@ The website has the following three tabs -
 ## _*Holiday Destination*_
 
 * The third tab was created to consume a self designed API. It fetches data locally from a Database in my system through ADO.NET and C#
-* Thus, the third tab might not produce effective results for any GitHub'er who might fork this. I will be updating this with a patch soon
-* Having said that, this is how the output screen functions.
+* I will be updating this page such that I can parse JSON data from an active Node.JS instance. 
 * Click [here](https://github.com/Nitin2392/Weather-Forecast-Website/blob/master/Weather_Men/6_HD1.jpg) to see the variety of drop down options for the user's choice of weather preferences
 * Click [here](https://github.com/Nitin2392/Weather-Forecast-Website/blob/master/Weather_Men/6_HD2.JPG) to see the final result based on the users choice of Continent and Weather preference
