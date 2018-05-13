@@ -21,6 +21,7 @@
 
                 var requestData = $('#txtCity').val() + ',' + $('#txtCountry').val();
                 $.ajax({
+                    //Making API Call here
                     url: 'http://api.openweathermap.org/data/2.5/weather',
                     method: 'get',
                     data: { q: requestData, appid:appId },
